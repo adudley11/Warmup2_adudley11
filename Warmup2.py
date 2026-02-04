@@ -32,6 +32,17 @@ class MyApp(ShowBase):
             x = x + 0.06
             
         self.accept('escape', self.quit)
+        
+    def negativeX(self, keyDown):
+        if (keyDown):
+            self.taskMgr.add(self.moveNegativeX, 'moveNegativeX')
+            
+        else:
+            self.taskMgr.remove('moveNegativeX')
+    
+    def moveNegativeX(self, task):
+        self.fighter.setX(self.fighter, -1)
+        return task.cont # Sets the task to continue next game cycle
 
     # Prepare message if server wants to quit
     def quit(self):
