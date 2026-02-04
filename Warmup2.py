@@ -31,6 +31,8 @@ class MyApp(ShowBase):
             self.parent.instanceTo(self.placeholder2)
             x = x + 0.06
             
+        self.accept('arrow_left', self.negativeX, [1])
+        self.accept('arrow_left-up', self.negativeX, [0])
         self.accept('escape', self.quit)
         
     def negativeX(self, keyDown):
