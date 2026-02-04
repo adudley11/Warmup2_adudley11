@@ -12,6 +12,12 @@ class MyApp(ShowBase):
     
         self.parent = self.loader.loadModel('./Assets/cube')
 
+        # Mouse control.
+        self.disableMouse()
+        
+        self.camera.setPos(0.0, 0.0, 250.0)
+        self.camera.setHpr(0.0, -90.0, 0.0)
+        
         x = 0
         for i in range(100):
             theta = x
@@ -24,6 +30,8 @@ class MyApp(ShowBase):
             self.placeholder2.setColorScale(red, green, blue, 1.0)
             self.parent.instanceTo(self.placeholder2)
             x = x + 0.06
+            
+        self.accept('escape', self.quit)
 
     # Prepare message if server wants to quit
     def quit(self):
