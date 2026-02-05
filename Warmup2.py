@@ -33,6 +33,13 @@ class MyApp(ShowBase):
             
         self.accept('arrow_left', self.negativeX, [1])
         self.accept('arrow_left-up', self.negativeX, [0])
+        self.accept('arrow_right', self.positiveX, [1])
+        self.accept('arrow_right-up', self.positiveX, [0])
+        self.accept('arrow_up', self.positiveY, [1])
+        self.accept('arrow_up-up', self.positiveY, [0])
+        self.accept('arrow_down', self.negativeY, [1])
+        self.accept('arrow_down-up', self.negativeY, [0])
+        
         self.accept('escape', self.quit)
         
     def negativeX(self, keyDown):
@@ -41,11 +48,45 @@ class MyApp(ShowBase):
             
         else:
             self.taskMgr.remove('moveNegativeX')
+
+    def positiveX(self, keyDown):
+        if (keyDown):
+            self.taskMgr.add(self.movePositiveX, 'movePositiveX')
+            
+        else:
+            self.taskMgr.remove('movePositiveX')
+            
+    def positiveY(self, keyDown):
+        if (keyDown):
+            self.taskMgr.add(self.movePositiveY, 'movePositiveY')
+            
+        else:
+            self.taskMgr.remove('movePositiveY')
+            
+    def negativeY(self, keyDown):
+        if (keyDown):
+            self.taskMgr.add(self.moveNegativeY, 'moveNegativeY')
+            
+        else:
+            self.taskMgr.remove('moveNegativeY')
+            
     
     def moveNegativeX(self, task):
         self.fighter.setX(self.fighter, -1)
+        return task.cont # Sets the task to continue next game cycle    
+
+    def movePositiveX(self, task):
+        self.fighter.setX(self.fighter, +1)
         return task.cont # Sets the task to continue next game cycle
 
+    def moveNegativeY(self, task):
+        self.fighter.setY(self.fighter, -1)
+        return task.cont # Sets the task to continue next game cycle
+    
+    def movePositiveY(self, task):
+        self.fighter.setY(self.fighter, +1)
+        return task.cont # Sets the task to continue next game cycle
+    
     # Prepare message if server wants to quit
     def quit(self):
         sys.exit()
